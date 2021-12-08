@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
+import { WikiService } from './services/wiki.service';
 
 @Component({
   selector: 'app-search',
@@ -15,9 +17,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly wikiService: WikiService) { }
 
   ngOnInit(): void {
+    this.wikiService.search('angular')
+                    .pipe(
+                      tap( res => console.log( res ))
+                    ).subscribe();
   }
 
 }
