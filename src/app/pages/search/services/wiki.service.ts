@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, pluck } from 'rxjs';
+import { Article, WikipediaResponse } from 'src/app/interfaces/wiki.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,10 +11,8 @@ export class WikiService {
 
   constructor( private readonly http: HttpClient) { }
 
-  // 
-  // action=query&format=json&list=search&continue=-%7C%7C&srsearch=Craig%20Noone&sroffset=10
 
-  search( term: string ): Observable<any> {
+  search( term: string ): Observable<Article[]> {
 
     const params = {
       action: 'query',
@@ -24,6 +23,9 @@ export class WikiService {
       origin: '*'
     }
 
-    return this.http.get< any >(environment.api, { params })
+    return this.http.get< WikipediaResponse >(environment.api, { params })
+                    .pipe(
+                     pluck('query', 'search')
+                    )
   }
 }
