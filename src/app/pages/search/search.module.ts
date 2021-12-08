@@ -9,7 +9,7 @@ import { SearchComponent } from './search.component';
     SearchComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     SearchComponent
