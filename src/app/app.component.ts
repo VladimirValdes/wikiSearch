@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { Article } from './interfaces/wiki.interface';
 import { WikiService } from './pages/search/services/wiki.service';
 
 @Component({
@@ -10,15 +11,13 @@ import { WikiService } from './pages/search/services/wiki.service';
 export class AppComponent {
   title = 'wikiSearch';
 
+  articles$ !:Observable<Article[]>;
   
   constructor( private readonly wikiService: WikiService) {
     
   }
 
   onSearch( term: string ) {
-    this.wikiService.search( term )
-        .pipe( 
-            tap( resp => console.log( resp ))
-        ).subscribe();
+    this.articles$ = this.wikiService.search( term );
   }
 }

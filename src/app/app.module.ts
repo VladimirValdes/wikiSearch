@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { SearchModule } from './pages/search/search.module';
+import { ArticleModule } from './pages/article/article.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { SearchModule } from './pages/search/search.module';
   imports: [
     BrowserModule,
     SearchModule,
-    HttpClientModule
+    HttpClientModule,
+    ArticleModule
 
   ],
   providers: [],

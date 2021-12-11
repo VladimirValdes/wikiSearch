@@ -6,4 +6,8 @@
         </p>
     </header>
     <app-search (submitted)="onSearch( $event )"></app-search>
+    <ng-container *ngFor="let article of articles$ | async ">
+        <app-article [article]="article"></app-article>
+    </ng-container>
+    
 </div>
