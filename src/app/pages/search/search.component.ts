@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
 import { WikiService } from './services/wiki.service';
 
@@ -7,9 +7,15 @@ import { WikiService } from './services/wiki.service';
   selector: 'app-search',
   template:`
     <div class="form">
-      <form>
+      <form
+        [formGroup]="searchForm"
+        (ngSubmit)="search()"
+        autocomplete="off">
         <div class="form-field">
-            <input type="search" [formControl]="inputSearch" placeholder="Search...">
+           <input
+              type="search"
+              placeholder="Search..."
+              formControlName="search">
         </div>
       </form>
     </div>
@@ -17,26 +23,48 @@ import { WikiService } from './services/wiki.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  inputSearch  = new FormControl('');
+  searchForm!: FormGroup;
+
+  // inputSearch  = new FormControl('');
   @Output() submitted = new EventEmitter<string>();
 
-  constructor(private readonly wikiService: WikiService) { 
+  constructor( private fb: FormBuilder ) { 
     
   }
 
   ngOnInit(): void {
-   this.onChange();
+    
+    this.searchForm = this.fb.group({
+      search: [],
+    });
+
+   this.search();
+
+  //  this.onChange();
   }
 
   onChange() {
-    this.inputSearch.valueChanges
+    // // this.inputSearch.valueChanges
+    //     .pipe(
+    //           map( ( search: string ) => search.trim() ),
+    //           debounceTime(350),
+    //           distinctUntilChanged(),
+    //           filter( ( search: string ) => search !== ''),
+    //           tap( res => this.submitted.emit(res)))
+    //     .subscribe()
+  }
+
+  search(  ) {
+    this.searchForm.controls['search'].valueChanges
         .pipe(
-              map( ( search: string ) => search.trim() ),
-              debounceTime(350),
-              distinctUntilChanged(),
-              filter( ( search: string ) => search !== ''),
-              tap( res => this.submitted.emit(res)))
-        .subscribe()
+          map(( search: string ) => search.trim() ),
+          debounceTime(350),
+          distinctUntilChanged(),
+          filter( ( search: string ) => search !== ''),
+          tap( res => this.submitted.emit(res))).subscribe();      
+    // console.log( term );
+    // this.submitted.emit(res)
+    
   }
 
 }
