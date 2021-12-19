@@ -3,17 +3,27 @@ app-search {
     width: 100%;
 }
 
-header {
+.header {
     padding: 1rem;
-    color: #3d4245;
+    text-align: center;
     letter-spacing: 1.8px;
 
-    .title {
-        font-size: 1.5rem;
-        padding-bottom: 1rem;
+    &__title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+
+        span {
+            color: #ff6600;
+        }
     }
 
-    .sub-title {
-        font-size: 1rem;
+    &__sub-title {
+        margin: 1rem 0;
+        font-size: 2rem;
     }
+}
+
+hr {
+    width: 100%;
+    border-top: 0.5px #333333;
 }
