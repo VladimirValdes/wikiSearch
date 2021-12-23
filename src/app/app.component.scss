@@ -20,10 +20,12 @@ app-search {
     &__sub-title {
         margin: 1rem 0;
         font-size: 2rem;
+        line-height: 2rem;
     }
 }
 
 hr {
     width: 100%;
     border-top: 0.5px #333333;
+    margin-bottom: 1rem;
 }
