@@ -40,19 +40,9 @@ export class SearchComponent implements OnInit {
 
    this.search();
 
-  //  this.onChange();
   }
 
-  onChange() {
-    // // this.inputSearch.valueChanges
-    //     .pipe(
-    //           map( ( search: string ) => search.trim() ),
-    //           debounceTime(350),
-    //           distinctUntilChanged(),
-    //           filter( ( search: string ) => search !== ''),
-    //           tap( res => this.submitted.emit(res)))
-    //     .subscribe()
-  }
+
 
   search(  ) {
     this.searchForm.controls['search'].valueChanges
@@ -61,10 +51,7 @@ export class SearchComponent implements OnInit {
           debounceTime(350),
           distinctUntilChanged(),
           filter( ( search: string ) => search !== ''),
-          tap( res => this.submitted.emit(res))).subscribe();      
-    // console.log( term );
-    // this.submitted.emit(res)
-    
+          tap( res => this.submitted.emit(res))).subscribe();     
   }
 
 }

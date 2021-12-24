@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticleComponent } from './article.component';
+import { LoadingComponent } from './loading.component';
 
 
 
 @NgModule({
   declarations: [
-    ArticleComponent
+    LoadingComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
-    ArticleComponent
+    LoadingComponent
   ]
 })
-export class ArticleModule { }
+export class LoadingModule { }

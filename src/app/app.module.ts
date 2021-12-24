@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { SearchModule } from './pages/search/search.module';
 import { ArticleModule } from './pages/article/article.module';
+import { LoaderInterceptorService } from './services/loader-interceptor.service';
+import { LoadingModule } from './shared/loading/loading.module';
 
 @NgModule({
   declarations: [
@@ -14,10 +16,17 @@ import { ArticleModule } from './pages/article/article.module';
     BrowserModule,
     SearchModule,
     HttpClientModule,
-    ArticleModule
+    ArticleModule,
+    LoadingModule
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

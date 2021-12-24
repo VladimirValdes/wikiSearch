@@ -10,5 +10,6 @@
     <ng-container *ngFor="let article of articles$ | async ">
         <app-article [article]="article"></app-article>
     </ng-container>
+    <app-loading></app-loading>
     
 </div>
