@@ -4,7 +4,7 @@ import { Article } from 'src/app/interfaces/wiki.interface';
 @Component({
   selector: 'app-article',
   template: `
-      <article class="article"
+      <article class="article fadeIn"
             (click)="showResult( article.pageid )">
         <h3 class="article__title"> {{ article.title }}</h3>
         <p [innerHTML]="article.snippet" class="article__desc"></p>

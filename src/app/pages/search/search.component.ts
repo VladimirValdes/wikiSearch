@@ -15,7 +15,8 @@ import { WikiService } from './services/wiki.service';
            <input
               type="search"
               placeholder="Search..."
-              formControlName="search">
+              formControlName="search"
+              (blur)="resetInput()">
         </div>
       </form>
     </div>
@@ -40,6 +41,7 @@ export class SearchComponent implements OnInit {
 
    this.search();
 
+
   }
 
 
@@ -47,11 +49,28 @@ export class SearchComponent implements OnInit {
   search(  ) {
     this.searchForm.controls['search'].valueChanges
         .pipe(
-          map(( search: string ) => search.trim() ),
+          map(( search: string ) => (search !== null) ? search.trim() : search ),
           debounceTime(350),
           distinctUntilChanged(),
           filter( ( search: string ) => search !== ''),
-          tap( res => this.submitted.emit(res))).subscribe();     
+          tap( res => {
+            if ( res !== null) {
+              
+              this.submitted.emit(res);
+            }
+
+          })).subscribe();
+
+
+          
+  }
+
+  resetInput() {
+      if ( this.searchForm.controls['search'].value ) {
+        this.searchForm.controls['search'].reset();
+        
+      }
+    
   }
 
 }

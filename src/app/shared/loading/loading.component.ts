@@ -4,7 +4,12 @@ import { LoadingServicesService } from 'src/app/services/loading-services.servic
 @Component({
   selector: 'app-loading',
   template: `
-    <p  [hidden]="!loading" class="loading__title">Loading ...</p>
+    <article
+      *ngIf="loading"
+      class="loading__article">
+        <h3 class="loading__title"></h3>
+        <p  class="loading__desc"></p>
+      </article>
   `,
   styleUrls: [ './loading.component.scss' ]
 })
@@ -15,11 +20,11 @@ export class LoadingComponent implements OnInit {
   constructor( private loadingService: LoadingServicesService) {
       this.loadingService.loadingSub.subscribe( ( value ) => {
         this.loading = value;
-        console.log( value );
       })
    }
 
   ngOnInit(): void {
   }
+
 
 }
