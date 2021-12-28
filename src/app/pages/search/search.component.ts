@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs';
-import { WikiService } from './services/wiki.service';
 
 @Component({
   selector: 'app-search',
@@ -12,6 +11,10 @@ import { WikiService } from './services/wiki.service';
         (ngSubmit)="search()"
         autocomplete="off">
         <div class="form-field">
+          <img
+            class="form-icon"
+            src="assets/icons/search.svg"
+            alt="search">
            <input
               type="search"
               placeholder="Search..."
@@ -26,7 +29,6 @@ import { WikiService } from './services/wiki.service';
 export class SearchComponent implements OnInit {
   searchForm!: FormGroup;
 
-  // inputSearch  = new FormControl('');
   @Output() submitted = new EventEmitter<string>();
 
   constructor( private fb: FormBuilder ) { 
@@ -54,23 +56,14 @@ export class SearchComponent implements OnInit {
           distinctUntilChanged(),
           filter( ( search: string ) => search !== ''),
           tap( res => {
-            if ( res !== null) {
-              
-              this.submitted.emit(res);
-            }
-
-          })).subscribe();
-
-
-          
+            if ( res !== null) { this.submitted.emit(res); }
+          })).subscribe();      
   }
 
   resetInput() {
       if ( this.searchForm.controls['search'].value ) {
-        this.searchForm.controls['search'].reset();
-        
+        this.searchForm.controls['search'].reset(); 
       }
-    
   }
 
 }
